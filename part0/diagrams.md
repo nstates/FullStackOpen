@@ -81,4 +81,3 @@ sequenceDiagram
     server-->>browser: status code 201 created
     deactivate server
 ```
-
