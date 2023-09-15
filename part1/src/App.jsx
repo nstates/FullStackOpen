@@ -7,12 +7,26 @@ const Header = (course) => {
   )
 }
 
-const Content = (course) => {
+const Part = (course) => {
+  console.log(course.part)
+
   return (
     <>
       <p>
         {course.part} {course.exercises}
       </p>
+    </>
+  )
+}
+
+const Content = (course) => {
+  console.log(course.part1)
+  console.log(course.exercises1)
+  return (
+    <>
+      <Part part={course.part1} exercises={course.exercises1} />
+      <Part part={course.part2} exercises={course.exercises2}/>
+      <Part part={course.part3} exercises={course.exercises3}/>
     </>
   )
 }
@@ -24,6 +38,7 @@ const Total = (course) => {
     </>
   )
 }
+
 
 const App = () => {
   const course = 'Half Stack application development'
@@ -38,9 +53,7 @@ const App = () => {
     <div>
         <Header course={course} />
 
-        <Content part={part1} exercises={exercises1}  />
-        <Content part={part2} exercises={exercises2}  />
-        <Content part={part3} exercises={exercises3}  />
+        <Content part1={part1} exercises1={exercises1} part2={part2} exercises2={exercises2} part3={part3} exercises3={exercises3} />
 
         <Total exercises1={exercises1} exercises2={exercises2} exercises3={exercises3} />
 
