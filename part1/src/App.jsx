@@ -2,7 +2,11 @@ import { useState } from 'react'
 
 const StatisticLine = (props) => {
   return(
-    <p>{props.text} {props.value} </p>
+    <>
+      <td>{props.text}</td> 
+      <td>{props.value} </td>
+    </>
+    
   )
 }
 const Statistics = (props) => {
@@ -14,13 +18,33 @@ const Statistics = (props) => {
     )
   }
   return (
-    <div>
-      <StatisticLine text="good " value={props.good} />
-      <StatisticLine text="neutral " value={props.neutral} />
-      <StatisticLine text="bad " value={props.bad} />
-      <StatisticLine text="total " value={props.total} />
-      <StatisticLine text="average " value={props.average} />
-    </div>
+    <table>
+      <tbody>
+        <tr>
+          <StatisticLine text="good" value={props.good} />
+        </tr>
+
+        <tr>
+          <StatisticLine text="neutral" value={props.neutral} />
+        </tr>
+
+        <tr>
+          <StatisticLine text="bad" value={props.bad} />
+        </tr>
+
+        <tr>
+          <StatisticLine text="total" value={props.total} />
+        </tr>
+
+        <tr>
+          <StatisticLine text="average" value={props.average} />
+        </tr>
+
+        <tr>
+          <StatisticLine text="positive" value={(props.good / props.total) * 100} /><td>%</td>
+        </tr>
+      </tbody> 
+    </table>
   )
 }
 
@@ -51,14 +75,12 @@ const App = () => {
     setNeutral(updatedNeutral)
     setTotal(updatedNeutral + good + bad)
     setAverage((good - bad) / (good + bad + updatedNeutral))
-    console.log('new total, neutral', total)
   }
   const handleBadClick = () => {
     const updatedBad = bad + 1
     setBad(updatedBad)
     setTotal(updatedBad + good + neutral)
     setAverage((good - updatedBad) / (good + updatedBad + neutral))
-    console.log('new total, bad', total)
   }
 
   return (
