@@ -4,6 +4,7 @@ const randomNumberInRange = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+
 const App = () => {
   const anecdotes = [
     'If it hurts, do it more often.',
@@ -18,16 +19,41 @@ const App = () => {
    
   const [selected, setSelected] = useState(0)
   const [num, setNum] = useState(0);
-  const length = anecdotes.length - 1
+  const length = anecdotes.length
+  const [votes, setVotes] = useState(Array(length).fill(0))
+  const [most_voted, setMost_voted] = useState(0)
+  const checkHighestVote = () => {
+    if (votes[selected] > votes[most_voted]) {
+      setMost_voted(selected)
+    }
+  }
 
  
 
   return (
     <div>
+      <h2>Anecdote of the day</h2>
       <p>{anecdotes[selected]}</p>
-      <button onClick={() => setSelected(randomNumberInRange(0, length))}>
+      <p>has {votes[selected]} vote(s)</p>
+
+      <button onClick={() => setSelected(randomNumberInRange(0, length - 1))}>
         next anecdote
       </button>
+
+      <button onClick={
+        () => {
+          const copy = [...votes]
+          copy[selected] += 1
+          setVotes(copy)
+        }}>
+        vote
+      </button>
+
+      <h2>Highest-voted anecdote</h2>
+      {checkHighestVote()}
+      <p>{anecdotes[most_voted]}</p>
+      <p>has {votes[most_voted]} vote(s) </p>
+      {console.log(votes)}
     </div>
   )
 }
